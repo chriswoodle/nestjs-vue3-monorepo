@@ -1,0 +1,31 @@
+{
+    "name": "@app/db",
+    "version": "0.0.1",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "private": true,
+    "scripts": {
+        "build": "yarn pnpify tsc -b -v",
+        "clean": "yarn pnpify tsc -b --clean",
+        "trace": "yarn pnpify tsc --traceResolution"
+    },
+    "dependencies": {
+        "@nestjs/common": "*",
+        "@nestjs/core": "workspace:*",
+        "@nestjs/swagger": "^4.7.12",
+        "bson": "^4.2.2",
+        "class-transformer": "*",
+        "debug": "*",
+        "envsafe": "*",
+        "mongodb": "*",
+        "reflect-metadata": "^0.1.13",
+        "rimraf": "^3.0.2",
+        "rxjs": "^6.5.4"
+    },
+    "devDependencies": {
+        "@types/debug": "*",
+        "@types/mongodb": "*",
+        "@yarnpkg/pnpify": "*",
+        "typescript": "*"
+    }
+}

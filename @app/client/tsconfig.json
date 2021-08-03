@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "lib": [
+        "ESNext",
+        "dom"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}

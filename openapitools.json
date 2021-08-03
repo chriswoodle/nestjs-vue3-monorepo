@@ -1,0 +1,20 @@
+{
+    "$schema": "@openapitools/openapi-generator-cli/config.schema.json",
+    "spaces": 4,
+    "generator-cli": {
+        "version": "5.0.0",
+        "generators": {
+            "v1.0": {
+                "generatorName": "typescript-axios",
+                "output": "#{cwd}/@app/client",
+                "glob": "api/docs/api-json.json",
+                "additionalProperties": {
+                    "npmName": "@app/client",
+                    "supportsES6": "true",
+                    "useSingleRequestParameter": true,
+                    "withInterfaces": true
+                }
+            }
+        }
+    }
+}

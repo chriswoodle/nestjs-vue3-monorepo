@@ -1,0 +1,31 @@
+{
+    "name": "@app/cache",
+    "version": "0.0.1",
+    "private": true,
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "build": "yarn pnpify tsc -b -v",
+        "clean": "yarn pnpify tsc -b --clean",
+        "trace": "yarn pnpify tsc --traceResolution"
+    },
+    "dependencies": {
+        "@app/db": "workspace:*",
+        "class-transformer": "*",
+        "debug": "*",
+        "reflect-metadata": "*",
+        "rxjs": "*"
+    },
+    "devDependencies": {
+        "@nestjs/common": "*",
+        "@types/debug": "*",
+        "@types/mongodb": "*",
+        "@types/node": "*",
+        "@yarnpkg/pnpify": "*",
+        "typescript": "*"
+    },
+    "peerDependencies": {
+        "@nestjs/common": "*",
+        "mongodb": "*"
+    }
+}
