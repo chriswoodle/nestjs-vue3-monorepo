@@ -37,3 +37,8 @@ cd web
 yarn dev
 ```
 Open web browser and navigate to the application (defaults to localhost:8080)
+
+
+## More notes
+
+1. yarn watch (to run nodemon and rebuild swagger everytime)
