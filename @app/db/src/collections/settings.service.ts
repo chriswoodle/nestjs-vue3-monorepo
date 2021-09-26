@@ -30,7 +30,7 @@ import debug from 'debug';
 import { pkg } from '../utils/environment';
 const log = debug(`${pkg.name}:${path.basename(__filename)}`)
 
-type Record = CommandsService.Record;
+type Record = SettingsService.Record;
 
 const COLLECTION = CollectionName.Rescuer;
 
@@ -40,7 +40,7 @@ async function ensureIndexes(collection: Collection<Record>) {
 }
 
 @Injectable()
-export class CommandsService {
+export class SettingsService {
     constructor(
         @Inject(collectionProvider.provide) private readonly collection: Collection<Record>
     ) { }
@@ -63,12 +63,12 @@ export class CommandsService {
     }
 
 }
-export namespace CommandsService {
+export namespace SettingsService {
     export interface Record<T = ObjectId> extends BaseRecord<T> {
         timestamp?: string;
-        input?: string;
+        isAuto?: boolean;
     }
-    // TODO - make CommandsService for database record (1)
+    // TODO - make SettingsService for database record (1)
     // Need one of these for every single collection
 
     export class CommandDbo implements Omit<Record<string>, 'passwordHash' | 'passwordSalt'> {
@@ -79,7 +79,7 @@ export namespace CommandsService {
         timestamp?: string
 
         @ApiProperty()
-        input?: string
+        isAuto?: boolean
 
         @ApiProperty()
         createdOn: Date;
@@ -87,7 +87,7 @@ export namespace CommandsService {
         constructor(record: Record<ObjectId>) {
             this._id = record._id.toHexString();
             this.timestamp = record.timestamp;
-            this.input = record.input;
+            this.isAuto = record.isAuto;
             this.createdOn = record.createdOn;
         }
         updatedOn?: Date | undefined;

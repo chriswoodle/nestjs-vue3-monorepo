@@ -30,7 +30,7 @@ import debug from 'debug';
 import { pkg } from '../utils/environment';
 const log = debug(`${pkg.name}:${path.basename(__filename)}`)
 
-type Record = CommandsService.Record;
+type Record = SensorService.Record;
 
 const COLLECTION = CollectionName.Rescuer;
 
@@ -40,7 +40,7 @@ async function ensureIndexes(collection: Collection<Record>) {
 }
 
 @Injectable()
-export class CommandsService {
+export class SensorService {
     constructor(
         @Inject(collectionProvider.provide) private readonly collection: Collection<Record>
     ) { }
@@ -63,12 +63,14 @@ export class CommandsService {
     }
 
 }
-export namespace CommandsService {
+export namespace SensorService {
     export interface Record<T = ObjectId> extends BaseRecord<T> {
         timestamp?: string;
-        input?: string;
+        smoke?: number;
+        temperature?: number;
+        co2?: number;
     }
-    // TODO - make CommandsService for database record (1)
+    // TODO - make SensorService for database record (1)
     // Need one of these for every single collection
 
     export class CommandDbo implements Omit<Record<string>, 'passwordHash' | 'passwordSalt'> {
@@ -79,7 +81,13 @@ export namespace CommandsService {
         timestamp?: string
 
         @ApiProperty()
-        input?: string
+        smoke?: number
+
+        @ApiProperty()
+        temperature?: number
+
+        @ApiProperty()
+        co2?: number
 
         @ApiProperty()
         createdOn: Date;
@@ -87,7 +95,9 @@ export namespace CommandsService {
         constructor(record: Record<ObjectId>) {
             this._id = record._id.toHexString();
             this.timestamp = record.timestamp;
-            this.input = record.input;
+            this.smoke = record.smoke;
+            this.temperature = record.temperature;
+            this.co2 = record.co2;
             this.createdOn = record.createdOn;
         }
         updatedOn?: Date | undefined;

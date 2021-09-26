@@ -13,8 +13,8 @@
 // Alarm Data (FIRE SOUND)
 // timestamp, type: fire/sound, coordinate system (0,1000)
 
-// Sensor Data ( SMOKE TEMPERATURE)
-// timestamp, smoke, temperature
+// Sensor Data ( long lat)
+// timestamp, long, lat
 
 // Location table (GPS)
 // last GPS coordinates timestamp
@@ -30,7 +30,7 @@ import debug from 'debug';
 import { pkg } from '../utils/environment';
 const log = debug(`${pkg.name}:${path.basename(__filename)}`)
 
-type Record = CommandsService.Record;
+type Record = LocationService.Record;
 
 const COLLECTION = CollectionName.Rescuer;
 
@@ -40,7 +40,7 @@ async function ensureIndexes(collection: Collection<Record>) {
 }
 
 @Injectable()
-export class CommandsService {
+export class LocationService {
     constructor(
         @Inject(collectionProvider.provide) private readonly collection: Collection<Record>
     ) { }
@@ -63,12 +63,16 @@ export class CommandsService {
     }
 
 }
-export namespace CommandsService {
+export namespace LocationService {
     export interface Record<T = ObjectId> extends BaseRecord<T> {
         timestamp?: string;
-        input?: string;
+        long?: number;
+        lat?: number;
+        coordX?: number;
+        coordY?: number;
+        coordInstance?: number;
     }
-    // TODO - make CommandsService for database record (1)
+    // TODO - make LocationService for database record (1)
     // Need one of these for every single collection
 
     export class CommandDbo implements Omit<Record<string>, 'passwordHash' | 'passwordSalt'> {
@@ -79,7 +83,19 @@ export namespace CommandsService {
         timestamp?: string
 
         @ApiProperty()
-        input?: string
+        long?: number
+
+        @ApiProperty()
+        lat?: number
+
+        @ApiProperty()
+        coordX?: number
+
+        @ApiProperty()
+        coordY?: number
+
+        @ApiProperty()
+        coordInstance?: number
 
         @ApiProperty()
         createdOn: Date;
@@ -87,7 +103,11 @@ export namespace CommandsService {
         constructor(record: Record<ObjectId>) {
             this._id = record._id.toHexString();
             this.timestamp = record.timestamp;
-            this.input = record.input;
+            this.long = record.long;
+            this.lat = record.lat;
+            this.coordX = record.coordX;
+            this.coordY = record.coordY;
+            this.coordInstance = record.coordInstance;
             this.createdOn = record.createdOn;
         }
         updatedOn?: Date | undefined;
