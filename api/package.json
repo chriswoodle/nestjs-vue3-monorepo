@@ -19,6 +19,7 @@
         "@nestjs/platform-express": "workspace:*",
         "@nestjs/swagger": "^4.7.12",
         "@types/multer": "^1.4.5",
+        "axios": "^0.21.4",
         "class-transformer": "^0.3.2",
         "class-validator": "^0.13.1",
         "debug": "*",

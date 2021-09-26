@@ -8,7 +8,9 @@ import { DatabaseService } from '../database.service';
 
 export enum CollectionName {
     Accounts = 'accounts',
-    Tokens = 'tokens'
+    Tokens = 'tokens',
+    Rescuer = 'rescuer',
+    Commands = 'commands'
 }
 
 export function collectionFactory<T>(collectionName: CollectionName, ensureIndexes: (collection: Collection<T>) => void) {
