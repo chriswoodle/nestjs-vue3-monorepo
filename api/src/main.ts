@@ -43,7 +43,9 @@ async function bootstrap() {
     SwaggerModule.setup('api-docs', app, document);
     SwaggerModule.setup('/', app, document);
 
-    fs.writeFileSync(__dirname + '../../docs/api-json.json', JSON.stringify(document));
+    if (env.NODE_ENV !== 'production') {
+        fs.writeFileSync(__dirname + '../../docs/api-json.json', JSON.stringify(document));
+    }
 
     await app.listen(env.PORT);
     log(`App listening on port: ${env.PORT}`);
