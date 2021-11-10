@@ -695,69 +695,59 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
 };
 
 /**
- * AccountApi - interface
+ * Request parameters for accountControllerChangePassword operation in AccountApi.
  * @export
- * @interface AccountApi
+ * @interface AccountApiAccountControllerChangePasswordRequest
  */
-export interface AccountApiInterface {
+export interface AccountApiAccountControllerChangePasswordRequest {
     /**
      * 
-     * @summary Get account info
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountApiInterface
+     * @type {ChangePassword}
+     * @memberof AccountApiAccountControllerChangePassword
      */
-    accountControllerAccountInfo(options?: any): AxiosPromise<AccountDbo>;
+    readonly changePassword: ChangePassword
+}
 
+/**
+ * Request parameters for accountControllerCreateAccount operation in AccountApi.
+ * @export
+ * @interface AccountApiAccountControllerCreateAccountRequest
+ */
+export interface AccountApiAccountControllerCreateAccountRequest {
     /**
      * 
-     * @summary Change password
-     * @param {ChangePassword} changePassword 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountApiInterface
+     * @type {CreateAccountRequest}
+     * @memberof AccountApiAccountControllerCreateAccount
      */
-    accountControllerChangePassword(changePassword: ChangePassword, options?: any): AxiosPromise<void>;
+    readonly createAccountRequest: CreateAccountRequest
+}
 
+/**
+ * Request parameters for accountControllerLogin operation in AccountApi.
+ * @export
+ * @interface AccountApiAccountControllerLoginRequest
+ */
+export interface AccountApiAccountControllerLoginRequest {
     /**
      * 
-     * @summary Create account
-     * @param {CreateAccountRequest} createAccountRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountApiInterface
+     * @type {LoginRequest}
+     * @memberof AccountApiAccountControllerLogin
      */
-    accountControllerCreateAccount(createAccountRequest: CreateAccountRequest, options?: any): AxiosPromise<CreateAccountResponse>;
+    readonly loginRequest: LoginRequest
+}
 
-    /**
-     * Accepts username and password to return a account jwt
-     * @summary Login
-     * @param {LoginRequest} loginRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountApiInterface
-     */
-    accountControllerLogin(loginRequest: LoginRequest, options?: any): AxiosPromise<LoginResponse>;
-
-    /**
-     * Blacklist user jwt
-     * @summary Logout
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountApiInterface
-     */
-    accountControllerLogout(options?: any): AxiosPromise<void>;
-
+/**
+ * Request parameters for accountControllerUpdateAccountInfo operation in AccountApi.
+ * @export
+ * @interface AccountApiAccountControllerUpdateAccountInfoRequest
+ */
+export interface AccountApiAccountControllerUpdateAccountInfoRequest {
     /**
      * 
-     * @summary Update account info
-     * @param {UpdateAccountInfo} updateAccountInfo 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountApiInterface
+     * @type {UpdateAccountInfo}
+     * @memberof AccountApiAccountControllerUpdateAccountInfo
      */
-    accountControllerUpdateAccountInfo(updateAccountInfo: UpdateAccountInfo, options?: any): AxiosPromise<void>;
-
+    readonly updateAccountInfo: UpdateAccountInfo
 }
 
 /**
@@ -766,7 +756,7 @@ export interface AccountApiInterface {
  * @class AccountApi
  * @extends {BaseAPI}
  */
-export class AccountApi extends BaseAPI implements AccountApiInterface {
+export class AccountApi extends BaseAPI {
     /**
      * 
      * @summary Get account info
@@ -781,37 +771,37 @@ export class AccountApi extends BaseAPI implements AccountApiInterface {
     /**
      * 
      * @summary Change password
-     * @param {ChangePassword} changePassword 
+     * @param {AccountApiAccountControllerChangePasswordRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public accountControllerChangePassword(changePassword: ChangePassword, options?: any) {
-        return AccountApiFp(this.configuration).accountControllerChangePassword(changePassword, options).then((request) => request(this.axios, this.basePath));
+    public accountControllerChangePassword(requestParameters: AccountApiAccountControllerChangePasswordRequest, options?: any) {
+        return AccountApiFp(this.configuration).accountControllerChangePassword(requestParameters.changePassword, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Create account
-     * @param {CreateAccountRequest} createAccountRequest 
+     * @param {AccountApiAccountControllerCreateAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public accountControllerCreateAccount(createAccountRequest: CreateAccountRequest, options?: any) {
-        return AccountApiFp(this.configuration).accountControllerCreateAccount(createAccountRequest, options).then((request) => request(this.axios, this.basePath));
+    public accountControllerCreateAccount(requestParameters: AccountApiAccountControllerCreateAccountRequest, options?: any) {
+        return AccountApiFp(this.configuration).accountControllerCreateAccount(requestParameters.createAccountRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Accepts username and password to return a account jwt
      * @summary Login
-     * @param {LoginRequest} loginRequest 
+     * @param {AccountApiAccountControllerLoginRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public accountControllerLogin(loginRequest: LoginRequest, options?: any) {
-        return AccountApiFp(this.configuration).accountControllerLogin(loginRequest, options).then((request) => request(this.axios, this.basePath));
+    public accountControllerLogin(requestParameters: AccountApiAccountControllerLoginRequest, options?: any) {
+        return AccountApiFp(this.configuration).accountControllerLogin(requestParameters.loginRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -828,13 +818,13 @@ export class AccountApi extends BaseAPI implements AccountApiInterface {
     /**
      * 
      * @summary Update account info
-     * @param {UpdateAccountInfo} updateAccountInfo 
+     * @param {AccountApiAccountControllerUpdateAccountInfoRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public accountControllerUpdateAccountInfo(updateAccountInfo: UpdateAccountInfo, options?: any) {
-        return AccountApiFp(this.configuration).accountControllerUpdateAccountInfo(updateAccountInfo, options).then((request) => request(this.axios, this.basePath));
+    public accountControllerUpdateAccountInfo(requestParameters: AccountApiAccountControllerUpdateAccountInfoRequest, options?: any) {
+        return AccountApiFp(this.configuration).accountControllerUpdateAccountInfo(requestParameters.updateAccountInfo, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -926,29 +916,12 @@ export const StatusApiFactory = function (configuration?: Configuration, basePat
 };
 
 /**
- * StatusApi - interface
- * @export
- * @interface StatusApi
- */
-export interface StatusApiInterface {
-    /**
-     * 
-     * @summary Check server status
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StatusApiInterface
-     */
-    statusControllerStatus(options?: any): AxiosPromise<void>;
-
-}
-
-/**
  * StatusApi - object-oriented interface
  * @export
  * @class StatusApi
  * @extends {BaseAPI}
  */
-export class StatusApi extends BaseAPI implements StatusApiInterface {
+export class StatusApi extends BaseAPI {
     /**
      * 
      * @summary Check server status

@@ -7,4 +7,3 @@ configuration.ts
 git_push.sh
 index.ts
 package.json
-tsconfig.json

@@ -11,8 +11,7 @@
                 "additionalProperties": {
                     "npmName": "@app/client",
                     "supportsES6": "true",
-                    "useSingleRequestParameter": true,
-                    "withInterfaces": true
+                    "useSingleRequestParameter": true
                 }
             }
         }
