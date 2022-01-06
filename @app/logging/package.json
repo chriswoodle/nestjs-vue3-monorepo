@@ -1,0 +1,26 @@
+{
+    "name": "@app/logging",
+    "version": "0.0.1",
+    "private": true,
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "build": "tsc -b -v",
+        "clean": "tsc -b --clean",
+        "trace": "tsc --traceResolution"
+    },
+    "dependencies": {
+        "debug": "^4.3.2",
+        "envsafe": "^2.0.3",
+        "supports-color": "^9.0.2"
+    },
+    "devDependencies": {
+        "@types/debug": "^4.1.7",
+        "@types/node": "*",
+        "typescript": "*"
+    },
+    "peerDependencies": {
+        "@types/node": "*",
+        "typescript": "*"
+    }
+}

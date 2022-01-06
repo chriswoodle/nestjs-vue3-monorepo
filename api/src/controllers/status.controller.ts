@@ -1,10 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiOkResponse } from '@nestjs/swagger';
 
-import * as path from 'path';
-import debug from 'debug';
 import { pkg } from '../utils/environment';
-const log = debug(`${pkg.name}:${path.basename(__filename)}`)
+import { createBasicLogger } from '@app/logging';
+const log = createBasicLogger(pkg.name, __filename);
 
 @ApiTags('status')
 @Controller('status')

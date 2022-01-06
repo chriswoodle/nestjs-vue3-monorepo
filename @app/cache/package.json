@@ -11,14 +11,13 @@
     },
     "dependencies": {
         "@app/db": "workspace:*",
+        "@app/logging": "workspace:*",
         "class-transformer": "*",
-        "debug": "*",
         "reflect-metadata": "*",
         "rxjs": "*"
     },
     "devDependencies": {
         "@nestjs/common": "*",
-        "@types/debug": "*",
         "@types/mongodb": "*",
         "@types/node": "*",
         "@yarnpkg/pnpify": "*",

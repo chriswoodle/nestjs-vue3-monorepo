@@ -3,10 +3,10 @@ import { str, envsafe, port } from 'envsafe';
 import * as jwt from 'jsonwebtoken';
 import { JwtClaims } from './types';
 
-import * as path from 'path';
-import debug from 'debug';
 import { pkg } from './utils/environment';
-const log = debug(`${pkg.name}:${path.basename(__filename)}`)
+
+import { createBasicLogger } from '@app/logging';
+const log = createBasicLogger(pkg.name, __filename);
 
 const devPrivateKay = `
 -----BEGIN RSA PRIVATE KEY-----

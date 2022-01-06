@@ -3,20 +3,20 @@ import { ObjectId } from 'mongodb';
 
 import { Collections } from '@app/db';
 
-import * as path from 'path';
-import debug, { Debug } from 'debug';
 import { pkg } from './utils/environment';
-const log = debug(`${pkg.name}:${path.basename(__filename)}`)
+
+import { createBasicLogger } from '@app/logging';
+const log = createBasicLogger(pkg.name, __filename);
 
 const TOKEN_PREFIX = 'token:';
 
 @Injectable()
 export class TokenCache {
     public tokens: {
-        [tokenId: string]: Collections.TokenService.Record<string>
+        [tokenId: string]: Collections.TokenCollection.Record<string>
     } = {};
     constructor(
-        private readonly tokenCollection: Collections.TokenService
+        private readonly tokenCollection: Collections.TokenCollection
     ) { }
 
     async isBlacklisted(tokenId: string) {
@@ -43,9 +43,9 @@ export class TokenCache {
         delete this.tokens[key];
     }
 
-    cacheToken(token: Collections.TokenService.Record) {
+    cacheToken(token: Collections.TokenCollection.Record) {
         const key = this.formatKey(token._id.toHexString());
-        this.tokens[key] = (new Collections.TokenService.TokenDbo(token)).serialize();
+        this.tokens[key] = (new Collections.TokenCollection.TokenDbo(token)).serialize();
         log(this.tokens[key]);
     }
 

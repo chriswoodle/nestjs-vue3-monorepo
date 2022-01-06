@@ -1,11 +1,10 @@
-import { Provider } from '@nestjs/common';
 import * as mongodb from 'mongodb';
 import { str, envsafe } from 'envsafe';
 
-import * as path from 'path';
-import debug from 'debug';
 import { pkg } from './utils/environment';
-const log = debug(`${pkg.name}:${path.basename(__filename)}`)
+
+import { createBasicLogger } from '@app/logging';
+const log = createBasicLogger(pkg.name, __filename);
 
 export const connectionFactory = {
     provide: 'DB_CONNECTION',

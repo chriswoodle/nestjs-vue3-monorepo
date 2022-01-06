@@ -1,8 +1,8 @@
-import * as path from 'path';
-import debug from 'debug';
 import { pkg } from '../utils/environment';
 import { Collection } from 'mongodb';
-const log = debug(`${pkg.name}:${path.basename(__filename)}`)
+
+import { createBasicLogger } from '@app/logging';
+const log = createBasicLogger(pkg.name, __filename);
 
 import { DatabaseService } from '../database.service';
 

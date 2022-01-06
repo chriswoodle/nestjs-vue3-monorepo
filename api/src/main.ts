@@ -10,10 +10,9 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 
-import * as path from 'path';
-import debug from 'debug';
 import { pkg, env } from './utils/environment';
-const log = debug(`${pkg.name}:${path.basename(__filename)}`)
+import { createBasicLogger } from '@app/logging';
+const log = createBasicLogger(pkg.name, __filename);
 
 const MORGAN_FORMAT = ':method :url :status :res[content-length] - :response-time ms';
 

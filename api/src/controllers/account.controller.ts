@@ -4,10 +4,10 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
 
-import * as path from 'path';
-import debug from 'debug';
 import { pkg } from '../utils/environment';
-const log = debug(`${pkg.name}:${path.basename(__filename)}`)
+
+import { createBasicLogger } from '@app/logging';
+const log = createBasicLogger(pkg.name, __filename);
 
 import { Collections } from '@app/db';
 import { Auth, Password, AuthService, JwtClaims, JwtClaimFromContext } from '@app/auth';
@@ -20,8 +20,8 @@ import { ObjectId } from 'mongodb';
 @Controller('account')
 export class AccountController {
     constructor(
-        private readonly accountCollection: Collections.AccountService,
-        private readonly tokenCollection: Collections.TokenService,
+        private readonly accountCollection: Collections.AccountCollection,
+        private readonly tokenCollection: Collections.TokenCollection,
         private readonly authService: AuthService,
         private readonly tokenCache: TokenCache
     ) { }
@@ -29,7 +29,7 @@ export class AccountController {
     @Get()
     @Auth()
     @ApiOperation({ summary: 'Get account info' })
-    @ApiOkResponse({ description: 'Get account info.', type: Collections.AccountService.AccountDbo })
+    @ApiOkResponse({ description: 'Get account info.', type: Collections.AccountCollection.AccountDbo })
     async accountInfo(
         @JwtClaimFromContext() claims: JwtClaims
     ) {
@@ -38,7 +38,7 @@ export class AccountController {
         if (!data) {
             throw new Error('Failed to find record.');
         }
-        return new Collections.AccountService.AccountDbo(data);
+        return new Collections.AccountCollection.AccountDbo(data);
     }
 
     @Put()
@@ -67,7 +67,7 @@ export class AccountController {
 
         const salt = Password.generateSalt();
 
-        const params: Parameters<Collections.AccountService['insertOne']> = [{
+        const params: Parameters<Collections.AccountCollection['insertOne']> = [{
             email,
             birthday,
             gender,
@@ -85,7 +85,7 @@ export class AccountController {
 
         const { accessToken } = await this.createAuthToken(account);
 
-        return { accessToken, account: new Collections.AccountService.AccountDbo(account) };
+        return { accessToken, account: new Collections.AccountCollection.AccountDbo(account) };
     }
 
     @Post('login')
@@ -157,7 +157,7 @@ export class AccountController {
         }
     }
 
-    private async createAuthToken(account: Collections.AccountService.Record) {
+    private async createAuthToken(account: Collections.AccountCollection.Record) {
         const tokenId = new ObjectId();
         const tokenCreated = new Date();
 
@@ -165,13 +165,13 @@ export class AccountController {
             jti: tokenId.toHexString(),
             accountId: account._id.toHexString(),
             issuer: pkg.name,
-            exp: Collections.TokenService.getTokenTypeExpirationDate(tokenCreated, Collections.TokenService.TokenType.JWT).getTime() / 1000,
+            exp: Collections.TokenCollection.getTokenTypeExpirationDate(tokenCreated, Collections.TokenCollection.TokenType.JWT).getTime() / 1000,
             iat: tokenCreated.getTime() / 1000
         };
 
         const accessToken = await this.authService.createToken(claims);
 
-        const record = (await this.tokenCollection.create(account._id, Collections.TokenService.TokenType.JWT, accessToken, tokenId, tokenCreated)).ops[0];
+        const record = (await this.tokenCollection.create(account._id, Collections.TokenCollection.TokenType.JWT, accessToken, tokenId, tokenCreated)).ops[0];
         this.tokenCache.cacheToken(record);
         return { claims, accessToken, record };
     }

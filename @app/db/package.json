@@ -10,12 +10,12 @@
         "trace": "yarn pnpify tsc --traceResolution"
     },
     "dependencies": {
+        "@app/logging": "workspace:*",
         "@nestjs/common": "*",
         "@nestjs/core": "workspace:*",
         "@nestjs/swagger": "^4.7.12",
         "bson": "^4.2.2",
         "class-transformer": "*",
-        "debug": "*",
         "envsafe": "*",
         "mongodb": "*",
         "reflect-metadata": "^0.1.13",
@@ -23,8 +23,8 @@
         "rxjs": "^6.5.4"
     },
     "devDependencies": {
-        "@types/debug": "*",
         "@types/mongodb": "*",
+        "@types/node": "*",
         "@yarnpkg/pnpify": "*",
         "typescript": "*"
     }

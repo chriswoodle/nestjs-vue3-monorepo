@@ -2,20 +2,13 @@
     "$schema": "http://json.schemastore.org/tsconfig",
     "extends": "../../config/tsconfig.base.json",
     "compilerOptions": {
-        "outDir": "./dist",
         "rootDir": "./src",
+        "outDir": "./dist",
         "incremental": true
     },
     "exclude": [
+        "test",
         "dist"
     ],
-    "include": [
-        "**/*.ts",
-        "**/*.*.ts"
-    ],
-    "references": [
-        {
-            "path": "../logging"
-        }
-    ]
+    "references": []
 }

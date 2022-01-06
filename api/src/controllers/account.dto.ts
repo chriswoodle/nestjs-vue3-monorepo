@@ -35,7 +35,7 @@ export class CreateAccountResponse {
     readonly accessToken!: string;
 
     @ApiProperty()
-    readonly account!: Collections.AccountService.AccountDbo;
+    readonly account!: Collections.AccountCollection.AccountDbo;
 }
 
 export class LoginRequest {

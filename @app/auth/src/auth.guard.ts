@@ -3,10 +3,10 @@ import { Injectable, CanActivate, ExecutionContext, UnauthorizedException, HttpE
 import { AuthService } from './auth.service';
 import { TokenCache } from '@app/cache';
 
-import * as path from 'path';
-import debug from 'debug';
 import { pkg } from './utils/environment';
-const log = debug(`${pkg.name}:${path.basename(__filename)}`)
+import { createBasicLogger } from '@app/logging';
+const log = createBasicLogger(pkg.name, __filename);
+
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(

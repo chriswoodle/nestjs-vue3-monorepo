@@ -10,7 +10,7 @@
         "trace": "yarn pnpify tsc --traceResolution"
     },
     "dependencies": {
-        "debug": "*",
+        "@app/logging": "workspace:*",
         "envsafe": "*",
         "jsonwebtoken": "^8.5.1"
     },
@@ -19,7 +19,6 @@
         "@nestjs/common": "*",
         "@nestjs/core": "workspace:*",
         "@nestjs/swagger": "*",
-        "@types/debug": "*",
         "@types/express": "^4.17.11",
         "@types/jsonwebtoken": "^8.5.0",
         "@types/mongodb": "*",

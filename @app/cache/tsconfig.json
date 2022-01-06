@@ -1,6 +1,6 @@
 {
     "$schema": "http://json.schemastore.org/tsconfig",
-    "extends": "../../tsconfig.base.json",
+    "extends": "../../config/tsconfig.base.json",
     "compilerOptions": {
         "rootDir": "./src",
         "outDir": "./dist",
@@ -8,7 +8,7 @@
         "types": [
             "node"
         ]
-    },    
+    },
     "include": [
         "**/*.ts",
         "**/*.*.ts"
@@ -16,6 +16,9 @@
     "references": [
         {
             "path": "../db"
+        },
+        {
+            "path": "../logging"
         }
     ]
 }

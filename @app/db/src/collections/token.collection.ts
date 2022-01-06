@@ -5,14 +5,13 @@ import { BaseRecord, Stringifiable, Creatable, ensureCreatedOn } from '../utils/
 import { ApiProperty } from '@nestjs/swagger';
 import { classToPlain } from "class-transformer";
 
-import * as path from 'path';
-import debug from 'debug';
-import { pkg } from '../utils/environment';
 import { Codes } from '../utils/codes';
 
-const log = debug(`${pkg.name}:${path.basename(__filename)}`)
+import { pkg } from '../utils/environment';
+import { createBasicLogger } from '@app/logging';
+const log = createBasicLogger(pkg.name, __filename);
 
-type Record<T = ObjectId> = TokenService.Record<T>;
+type Record<T = ObjectId> = TokenCollection.Record<T>;
 
 const COLLECTION = CollectionName.Tokens;
 
@@ -23,7 +22,7 @@ async function ensureIndexes(collection: Collection<Record>) {
 }
 
 @Injectable()
-export class TokenService {
+export class TokenCollection {
     constructor(
         @Inject(collectionProvider.provide) private readonly collection: Collection<Record>
     ) { }
@@ -32,7 +31,7 @@ export class TokenService {
         return this.collection.findOne({ _id });
     };
 
-    getByToken(token: string, type: TokenService.TokenType) {
+    getByToken(token: string, type: TokenCollection.TokenType) {
         return this.collection.findOne({ token, type });
     };
 
@@ -45,7 +44,7 @@ export class TokenService {
         return this.collection.insertOne({
             ...params,
             createdOn,
-            expireAt: TokenService.getTokenTypeExpirationDate(createdOn, params.type)
+            expireAt: TokenCollection.getTokenTypeExpirationDate(createdOn, params.type)
         });
     }
 
@@ -57,7 +56,7 @@ export class TokenService {
         return this.collection.find({ blacklisted: true }).toArray();
     }
 
-    remove(token: string, type: TokenService.TokenType) {
+    remove(token: string, type: TokenCollection.TokenType) {
         return this.collection.deleteOne({ token, type });
     };
 
@@ -66,11 +65,11 @@ export class TokenService {
         return this.remove(token, type);
     };
 
-    async generate(accountId: ObjectId, type: TokenService.TokenType, length?: number) {
+    async generate(accountId: ObjectId, type: TokenCollection.TokenType, length?: number) {
         // Recursivly insert if failure
         const insert = async (attempt = 0): Promise<Record> => {
             try {
-                const params: Parameters<TokenService['create']> = [
+                const params: Parameters<TokenCollection['create']> = [
                     accountId,
                     type,
                     Codes.generateToken(length),
@@ -87,8 +86,8 @@ export class TokenService {
         return await insert();
     }
 
-    async create(accountId: ObjectId, type: TokenService.TokenType, token: string, _id?: ObjectId, createdOn?: Date) {
-        const params: Parameters<TokenService['insertOne']>[0] = {
+    async create(accountId: ObjectId, type: TokenCollection.TokenType, token: string, _id?: ObjectId, createdOn?: Date) {
+        const params: Parameters<TokenCollection['insertOne']>[0] = {
             _id,
             token,
             accountId,
@@ -99,7 +98,7 @@ export class TokenService {
 }
 
 
-export namespace TokenService {
+export namespace TokenCollection {
     export enum TokenType {
         JWT = 'jwt',
         EmailVerification = 'emailVerification',
