@@ -9,6 +9,5 @@ configuration.ts
 index.ts
 git_push.sh
 .openapi-generator
-package.json
 README.md
 tsconfig.json

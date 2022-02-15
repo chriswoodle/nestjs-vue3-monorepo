@@ -23,4 +23,5 @@
 #!docs/README.md
 tsconfig.json
 git_push.sh
+package.json
 .gitignore
