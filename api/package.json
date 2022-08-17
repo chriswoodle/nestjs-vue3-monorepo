@@ -12,7 +12,6 @@
         "clean": "yarn pnpify tsc -b --clean",
         "trace": "yarn pnpify tsc --traceResolution",
         "generate-spec": "GENERATE_SPEC=true yarn node -r dotenv/config -r source-map-support/register ./dist/main.js"
-
     },
     "dependencies": {
         "@app/auth": "workspace:*",
