@@ -13,6 +13,10 @@ export const connectionFactory = {
             MONGODB_CONNECTION_STRING: str({
                 desc: 'Connection string to mongodb',
             }),
+            MONGODB_DATABASE_NAME: str({
+                desc: 'Database Name',
+                default: 'main'
+            }),
         }, {
             strict: true
         })
@@ -21,7 +25,7 @@ export const connectionFactory = {
             client.connect((err) => {
                 if (err) return reject(err);
                 log('Connected to mongodb.');
-                const db = client.db('main');
+                const db = client.db(env.MONGODB_DATABASE_NAME);
                 return resolve({ client, db });
             });
         });

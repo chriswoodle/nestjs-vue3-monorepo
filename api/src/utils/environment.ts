@@ -1,4 +1,4 @@
-import { str, envsafe, port} from 'envsafe';
+import { str, envsafe, port, bool} from 'envsafe';
 export const pkg = require('../../package.json');
 
 export const env = envsafe({
@@ -12,7 +12,11 @@ export const env = envsafe({
         example: 80,
     }),
     DEBUG: str({
+        allowEmpty: true,
         devDefault: 'app*',
         desc: 'Debug prefix'
     }),
+    GENERATE_SPEC: bool({
+        default: false
+    })
 });

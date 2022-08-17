@@ -42,8 +42,12 @@ async function bootstrap() {
     SwaggerModule.setup('api-docs', app, document);
     SwaggerModule.setup('/', app, document);
 
-    if (env.NODE_ENV !== 'production') {
+    if (env.GENERATE_SPEC) {
+        log('Generating OpenAPI Spec...');
         fs.writeFileSync(__dirname + '../../docs/api-json.json', JSON.stringify(document));
+        log('Generating OpenAPI Spec complete.');
+        app.close();
+        return;
     }
 
     await app.listen(env.PORT);

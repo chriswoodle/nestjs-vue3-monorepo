@@ -10,7 +10,9 @@
         "start:debug": "yarn pnpify nest start --debug --watch",
         "start:prod": "yarn node ./dist/main.js",
         "clean": "yarn pnpify tsc -b --clean",
-        "trace": "yarn pnpify tsc --traceResolution"
+        "trace": "yarn pnpify tsc --traceResolution",
+        "generate-spec": "GENERATE_SPEC=true yarn node -r dotenv/config -r source-map-support/register ./dist/main.js"
+
     },
     "dependencies": {
         "@app/auth": "workspace:*",
