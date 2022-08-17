@@ -3,6 +3,7 @@
       "declaration": true,
       "target": "esnext",
       "module": "esnext",
+      "moduleResolution": "Node",
       "noImplicitAny": true,
       "outDir": "dist",
       "rootDir": ".",
