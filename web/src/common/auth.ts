@@ -33,7 +33,7 @@ export function useAuth() {
     const login = async (username: string, password: string) => {
         try {
             const config = new client.Configuration({ basePath: import.meta.env.VITE_SERVICE_HOST })
-            const response = await new client.AccountApi(config).accountControllerLogin({ email: username, password });
+            const response = await new client.AccountApi(config).accountControllerLogin({ loginRequest: { email: username, password } });
             saveToken(response.data.accessToken);
         } catch (error) {
             console.log(error);
