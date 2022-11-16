@@ -20,14 +20,10 @@ export const connectionFactory = {
         }, {
             strict: true
         })
-        const client = new mongodb.MongoClient(env.MONGODB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
-        return new Promise<{ client: mongodb.MongoClient, db: mongodb.Db }>((resolve, reject) => {
-            client.connect((err) => {
-                if (err) return reject(err);
-                log('Connected to mongodb.');
-                const db = client.db(env.MONGODB_DATABASE_NAME);
-                return resolve({ client, db });
-            });
-        });
+        const client = new mongodb.MongoClient(env.MONGODB_CONNECTION_STRING);
+        await client.connect();
+        log('Connected to mongodb.');
+        const db = client.db(env.MONGODB_DATABASE_NAME);
+        return { client, db };
     }
 };

@@ -12,16 +12,16 @@
     "dependencies": {
         "@app/logging": "workspace:*",
         "envsafe": "*",
-        "jsonwebtoken": "^8.5.1"
+        "jsonwebtoken": "^8.5.1",
+        "mongodb": "*"
     },
     "devDependencies": {
         "@app/cache": "workspace:*",
         "@nestjs/common": "*",
-        "@nestjs/core": "workspace:*",
+        "@nestjs/core": "*",
         "@nestjs/swagger": "*",
-        "@types/express": "^4.17.11",
-        "@types/jsonwebtoken": "^8.5.0",
-        "@types/mongodb": "*",
+        "@types/express": "*",
+        "@types/jsonwebtoken": "^8.5.9",
         "@types/node": "*",
         "@yarnpkg/pnpify": "*",
         "rxjs": "*",

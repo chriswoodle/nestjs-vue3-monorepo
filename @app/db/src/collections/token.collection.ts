@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CollectionName, collectionFactory } from './collection.factory';
-import { Collection, ObjectId, FilterQuery } from 'mongodb';
+import { Collection, ObjectId, Filter, WithoutId, WithId } from 'mongodb';
 import { BaseRecord, Stringifiable, Creatable, ensureCreatedOn } from '../utils/record';
 import { ApiProperty } from '@nestjs/swagger';
 import { classToPlain } from "class-transformer";
@@ -11,7 +11,7 @@ import { pkg } from '../utils/environment';
 import { createBasicLogger } from '@app/logging';
 const log = createBasicLogger(pkg.name, __filename);
 
-type Record<T = ObjectId> = TokenCollection.Record<T>;
+type Record = WithoutId<TokenCollection.Record>;
 
 const COLLECTION = CollectionName.Tokens;
 
@@ -35,21 +35,26 @@ export class TokenCollection {
         return this.collection.findOne({ token, type });
     };
 
-    findOne(query: FilterQuery<Record>) {
+    findOne(query: Filter<Record>) {
         return this.collection.findOne(query);
     };
 
-    private insertOne(params: Creatable<Record>) {
+    private async insertOne(params: Creatable<Record>): Promise<WithId<Record>> {
         const createdOn = new Date();
-        return this.collection.insertOne({
+        const record = {
             ...params,
             createdOn,
             expireAt: TokenCollection.getTokenTypeExpirationDate(createdOn, params.type)
-        });
+        };
+        const { insertedId } = await this.collection.insertOne(record);
+        return {
+            _id: insertedId,
+            ...record
+        }
     }
 
     blacklist(_id: ObjectId) {
-        return this.collection.findOneAndUpdate({ _id }, { $set: { blacklisted: true } }, { returnOriginal: false });
+        return this.collection.findOneAndUpdate({ _id }, { $set: { blacklisted: true } }, { returnDocument: 'after' });
     }
 
     getBlacklistedTokens() {
@@ -75,8 +80,7 @@ export class TokenCollection {
                     Codes.generateToken(length),
                 ];
                 const result = await this.create(...params);
-                if (result.insertedCount === 0) throw new Error('Improbable collision.');
-                return result.ops[0];
+                return result;
             } catch (error) {
                 if (attempt >= 3) throw new Error('Failed to insert record due to multiple insert collisions, how unlucky...');
                 attempt++;
@@ -160,7 +164,7 @@ export namespace TokenCollection {
 
     /**
      * Returns a new expiration date x days in the future where x is determined by [type]
-     * @param type 
+     * @param type
      */
     export function getTokenTypeExpirationDate(createdOn: Date, type: TokenType) {
         const date = new Date(createdOn);

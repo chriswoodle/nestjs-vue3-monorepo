@@ -77,11 +77,10 @@ export class AccountController {
             passwordSalt: salt,
         }];
 
-        const result = await this.accountCollection.insertOne(...params);
-        if (!result) {
+        const account = await this.accountCollection.insertOne(...params);
+        if (!account) {
             throw new Error('Failed to insert record.');
         }
-        const account = result.ops[0];
 
         const { accessToken } = await this.createAuthToken(account);
 
@@ -171,7 +170,7 @@ export class AccountController {
 
         const accessToken = await this.authService.createToken(claims);
 
-        const record = (await this.tokenCollection.create(account._id, Collections.TokenCollection.TokenType.JWT, accessToken, tokenId, tokenCreated)).ops[0];
+        const record = (await this.tokenCollection.create(account._id, Collections.TokenCollection.TokenType.JWT, accessToken, tokenId, tokenCreated));
         this.tokenCache.cacheToken(record);
         return { claims, accessToken, record };
     }

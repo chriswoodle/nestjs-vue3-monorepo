@@ -13,12 +13,12 @@
         "@app/db": "workspace:*",
         "@app/logging": "workspace:*",
         "class-transformer": "*",
+        "mongodb": "*",
         "reflect-metadata": "*",
         "rxjs": "*"
     },
     "devDependencies": {
         "@nestjs/common": "*",
-        "@types/mongodb": "*",
         "@types/node": "*",
         "@yarnpkg/pnpify": "*",
         "typescript": "*"

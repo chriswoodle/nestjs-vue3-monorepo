@@ -12,15 +12,13 @@
     "dependencies": {
         "@app/logging": "workspace:*",
         "@nestjs/common": "*",
-        "@nestjs/core": "workspace:*",
-        "@nestjs/swagger": "^4.7.12",
-        "bson": "^4.2.2",
+        "@nestjs/core": "*",
+        "@nestjs/swagger": "*",
         "class-transformer": "*",
         "envsafe": "*",
         "mongodb": "*",
-        "reflect-metadata": "^0.1.13",
-        "rimraf": "^3.0.2",
-        "rxjs": "^6.5.4"
+        "reflect-metadata": "*",
+        "rxjs": "*"
     },
     "devDependencies": {
         "@types/mongodb": "*",

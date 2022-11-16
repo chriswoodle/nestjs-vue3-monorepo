@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CollectionName, collectionFactory } from './collection.factory';
-import { Collection, ObjectId, FilterQuery, MatchKeysAndValues } from 'mongodb';
+import { Collection, ObjectId, MatchKeysAndValues, Filter, WithId, WithoutId } from 'mongodb';
 import { BaseRecord, Stringifiable, Creatable, ensureCreatedOn } from '../utils/record';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -8,7 +8,7 @@ import { pkg } from '../utils/environment';
 import { createBasicLogger } from '@app/logging';
 const log = createBasicLogger(pkg.name, __filename);
 
-type Record = AccountCollection.Record;
+type Record = WithoutId<AccountCollection.Record>;
 
 const COLLECTION = CollectionName.Accounts;
 
@@ -35,12 +35,17 @@ export class AccountCollection {
         return this.collection.find().toArray();
     };
 
-    findOne(query: FilterQuery<Record>) {
+    findOne(query: Filter<Record>) {
         return this.collection.findOne(query);
     };
 
-    insertOne(params: Creatable<Record>) {
-        return this.collection.insertOne(ensureCreatedOn(params));
+    async insertOne(params: Creatable<Record>): Promise<WithId<Record>> {
+        const record = ensureCreatedOn(params);
+        const { insertedId } = await this.collection.insertOne(record);
+        return {
+            _id: insertedId,
+            ...record
+        }
     }
 
     updateInfo(_id: ObjectId, params: Partial<Pick<Record, 'nickname'>>) {
@@ -55,7 +60,7 @@ export class AccountCollection {
         return this.collection.updateOne({ _id }, { $set: { verifiedEmail: state } });
     };
 
-    updatePassword(record: Record, params: Pick<Record, 'passwordHash' | 'passwordSalt'>) {
+    updatePassword(record: WithId<Record>, params: Pick<Record, 'passwordHash' | 'passwordSalt'>) {
         const { passwordHash, passwordSalt } = params;
         return this.collection.updateOne({ _id: record._id }, { $set: { passwordHash, passwordSalt } });
     };
@@ -76,7 +81,7 @@ export namespace AccountCollection {
         remoteProfilePictureUrl?: string;
         birthday: string;
         gender: string;
-        phoneNumber: string; 
+        phoneNumber: string;
     }
 
     export class AccountDbo implements Omit<Record<string>, 'passwordHash' | 'passwordSalt'> {

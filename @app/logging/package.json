@@ -10,9 +10,9 @@
         "trace": "tsc --traceResolution"
     },
     "dependencies": {
-        "debug": "^4.3.2",
-        "envsafe": "^2.0.3",
-        "supports-color": "^9.0.2"
+        "debug": "^4.3.4",
+        "envsafe": "*",
+        "supports-color": "^9.2.3"
     },
     "devDependencies": {
         "@types/debug": "^4.1.7",
