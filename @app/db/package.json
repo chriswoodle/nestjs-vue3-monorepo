@@ -11,8 +11,8 @@
     },
     "dependencies": {
         "@app/logging": "workspace:*",
-        "@nestjs/common": "*",
-        "@nestjs/core": "*",
+        "@nestjs/common": "^9.2.0",
+        "@nestjs/core": "^9.2.0",
         "@nestjs/swagger": "*",
         "class-transformer": "*",
         "envsafe": "*",

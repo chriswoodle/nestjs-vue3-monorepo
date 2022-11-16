@@ -17,8 +17,8 @@
     },
     "devDependencies": {
         "@app/cache": "workspace:*",
-        "@nestjs/common": "*",
-        "@nestjs/core": "*",
+        "@nestjs/common": "^9.2.0",
+        "@nestjs/core": "^9.2.0",
         "@nestjs/swagger": "*",
         "@types/express": "*",
         "@types/jsonwebtoken": "^8.5.9",
@@ -28,8 +28,8 @@
         "typescript": "*"
     },
     "peerDependencies": {
-        "@nestjs/common": "*",
-        "@nestjs/core": "*",
+        "@nestjs/common": "^9.2.0",
+        "@nestjs/core": "^9.2.0",
         "@nestjs/swagger": "*",
         "mongodb": "*",
         "reflect-metadata": "*",

@@ -2,7 +2,7 @@
     "$schema": "@openapitools/openapi-generator-cli/config.schema.json",
     "spaces": 4,
     "generator-cli": {
-        "version": "5.0.0",
+        "version": "6.2.1",
         "generators": {
             "v1.0": {
                 "generatorName": "typescript-axios",

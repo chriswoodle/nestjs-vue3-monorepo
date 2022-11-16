@@ -6,7 +6,9 @@ dist
 api.ts
 base.ts
 configuration.ts
+common.ts
 index.ts
 git_push.sh
 .openapi-generator
+tsconfig.esm.json
 README.md

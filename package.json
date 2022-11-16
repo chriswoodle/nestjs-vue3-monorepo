@@ -1,19 +1,17 @@
 {
     "packageManager": "yarn@2.4.2",
     "scripts": {
+        "build": "yarn workspace app-api build && yarn workspace app-api generate-spec && yarn generate-client && yarn workspace @app/client build && yarn workspace web build",
         "generate-client": "openapi-generator-cli generate"
     },
     "dependencies": {
-        "@openapitools/openapi-generator-cli": "^2.1.19",
+        "@openapitools/openapi-generator-cli": "^2.5.2",
         "@yarnpkg/pnpify": "*",
         "typescript": "^*"
     },
     "resolutions": {
-        "@nestjs/core": "^9.2.0",
-        "@nestjs/platform-express": "^9.2.0",
         "envsafe": "^2.0.3",
         "typescript": "4.3.5",
-        "@nestjs/common": "^9.2.0",
         "@types/node": "^16.10.0",
         "@yarnpkg/pnpify": "^2.3.2",
         "mongodb": "^4.11.0",

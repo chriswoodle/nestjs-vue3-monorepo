@@ -45,7 +45,7 @@ async function bootstrap() {
 
     if (env.GENERATE_SPEC) {
         log('Generating OpenAPI Spec...');
-        const output = path.resolve(__dirname, '../../docs/');
+        const output = path.resolve(__filename, '../../docs/');
         fs.mkdirSync(output, { recursive: true });
         fs.writeFileSync(path.resolve(output, 'api-json.json'), JSON.stringify(document));
         log('Generating OpenAPI Spec complete.');
