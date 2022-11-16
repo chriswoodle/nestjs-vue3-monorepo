@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as fs from 'fs';
+import path from 'path';
 
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -44,7 +45,9 @@ async function bootstrap() {
 
     if (env.GENERATE_SPEC) {
         log('Generating OpenAPI Spec...');
-        fs.writeFileSync(__dirname + '../../docs/api-json.json', JSON.stringify(document));
+        const output = path.resolve(__dirname, '../../docs/');
+        fs.mkdirSync(output, { recursive: true });
+        fs.writeFileSync(path.resolve(output, 'api-json.json'), JSON.stringify(document));
         log('Generating OpenAPI Spec complete.');
         app.close();
         return;
