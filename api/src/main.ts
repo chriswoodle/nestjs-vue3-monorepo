@@ -1,11 +1,10 @@
-import { NestApplication } from '@nestjs/core';
-import { ValidationPipe, HttpAdapterHost } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as fs from 'fs';
-import path from 'path';
+import * as path from 'path';
 
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
