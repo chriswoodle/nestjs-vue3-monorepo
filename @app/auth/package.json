@@ -12,24 +12,24 @@
     "dependencies": {
         "@app/logging": "workspace:*",
         "envsafe": "*",
-        "jsonwebtoken": "^8.5.1",
+        "jsonwebtoken": "^9.0.2",
         "mongodb": "*"
     },
     "devDependencies": {
         "@app/cache": "workspace:*",
-        "@nestjs/common": "^9.2.0",
-        "@nestjs/core": "^9.2.0",
+        "@nestjs/common": "*",
+        "@nestjs/core": "*",
         "@nestjs/swagger": "*",
         "@types/express": "*",
-        "@types/jsonwebtoken": "^8.5.9",
+        "@types/jsonwebtoken": "^9.0.6",
         "@types/node": "*",
         "@yarnpkg/pnpify": "*",
         "rxjs": "*",
         "typescript": "*"
     },
     "peerDependencies": {
-        "@nestjs/common": "^9.2.0",
-        "@nestjs/core": "^9.2.0",
+        "@nestjs/common": "*",
+        "@nestjs/core": "*",
         "@nestjs/swagger": "*",
         "mongodb": "*",
         "reflect-metadata": "*",

@@ -10,13 +10,13 @@
         "trace": "tsc --traceResolution"
     },
     "dependencies": {
-        "@nestjs/common": "^10.2.1",
+        "@nestjs/common": "*",
         "debug": "^4.3.4",
         "envsafe": "*",
-        "supports-color": "^9.2.3"
+        "supports-color": "^9.4.0"
     },
     "devDependencies": {
-        "@types/debug": "^4.1.7",
+        "@types/debug": "^4.1.12",
         "@types/node": "*",
         "typescript": "*"
     },

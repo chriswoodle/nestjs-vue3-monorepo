@@ -116,7 +116,7 @@ export class AccountController {
     ) {
         log(claims.jti);
         this.tokenCache.uncacheToken(claims.jti);
-        const record = (await this.tokenCollection.blacklist(claims.jti)).value;
+        const record = (await this.tokenCollection.blacklist(claims.jti));
         log(record);
         if (!record) return;
         this.tokenCache.cacheToken(record);

@@ -18,13 +18,13 @@
         "rxjs": "*"
     },
     "devDependencies": {
-        "@nestjs/common": "^9.2.0",
+        "@nestjs/common": "*",
         "@types/node": "*",
         "@yarnpkg/pnpify": "*",
         "typescript": "*"
     },
     "peerDependencies": {
-        "@nestjs/common": "^9.2.0",
+        "@nestjs/common": "*",
         "mongodb": "*"
     }
 }

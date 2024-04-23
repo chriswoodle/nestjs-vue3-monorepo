@@ -1,5 +1,5 @@
 import { pkg } from '../utils/environment';
-import { Collection } from 'mongodb';
+import { Collection, Document } from 'mongodb';
 
 import { createBasicLogger } from '@app/logging';
 const log = createBasicLogger(pkg.name, __filename);
@@ -11,7 +11,7 @@ export enum CollectionName {
     Tokens = 'tokens'
 }
 
-export function collectionFactory<T>(collectionName: CollectionName, ensureIndexes: (collection: Collection<T>) => void) {
+export function collectionFactory<T extends Document>(collectionName: CollectionName, ensureIndexes: (collection: Collection<T>) => void) {
     return {
         provide: `COLLECTION_${collectionName}`,
         useFactory: async (databaseService: DatabaseService) => {

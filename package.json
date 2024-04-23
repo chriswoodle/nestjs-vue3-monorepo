@@ -1,25 +1,27 @@
 {
-    "packageManager": "yarn@2.4.2",
+    "packageManager": "yarn@4.1.1",
     "scripts": {
         "build": "yarn workspace app-api build && yarn workspace app-api generate-spec && yarn generate-client && yarn workspace @app/client build && yarn workspace web build",
         "generate-client": "openapi-generator-cli generate"
     },
     "dependencies": {
-        "@openapitools/openapi-generator-cli": "^2.5.2",
+        "@openapitools/openapi-generator-cli": "^2.13.4",
         "@yarnpkg/pnpify": "*",
         "typescript": "^*"
     },
     "resolutions": {
         "envsafe": "^2.0.3",
-        "typescript": "4.3.5",
-        "@types/node": "^16.10.0",
-        "@yarnpkg/pnpify": "^2.3.2",
-        "mongodb": "^4.11.0",
-        "rxjs": "^7.5.7",
-        "fsevents": "^2.3.2",
-        "reflect-metadata": "^0.1.13",
+        "typescript": "5.4.5",
+        "@nestjs/common": "^10.3.8",
+        "@nestjs/core": "^10.3.8",
+        "@types/node": "^18.0.0",
+        "@yarnpkg/pnpify": "^4.0.1",
+        "mongodb": "^6.5.0",
+        "rxjs": "^7.8.1",
+        "fsevents": "^2.3.3",
+        "reflect-metadata": "^0.2.2",
         "class-transfomer": "^0.5.1",
-        "class-validator": "0.13.1"
+        "class-validator": "0.14.1"
     },
     "workspaces": [
         "api",
