@@ -20,7 +20,7 @@
         "@app/logging": "workspace:*",
         "@nestjs/common": "*",
         "@nestjs/core": "*",
-        "@nestjs/platform-express": "^10.3.8",
+        "@nestjs/platform-express": "^10.3.10",
         "@nestjs/swagger": "^7.3.1",
         "@types/multer": "^1.4.11",
         "class-transformer": "*",
@@ -40,7 +40,7 @@
     "devDependencies": {
         "@nestjs/cli": "^10.3.2",
         "@nestjs/schematics": "^10.1.1",
-        "@nestjs/testing": "^10.3.8",
+        "@nestjs/testing": "^10.3.10",
         "@types/express": "^4.17.21",
         "@types/mongodb": "*",
         "@types/morgan": "^1.9.9",
